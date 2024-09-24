@@ -1,0 +1,56 @@
+version: '3.7'
+
+services:
+  litemp-web:
+    container_name: litemp-web
+    build:
+      context: ./docker/nginx
+      args:
+        user: litemp
+        UID: 501
+    ports:
+      - 350:80
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - litemp-be
+      - litemp-db
+    networks:
+      - litemp-network
+
+  litemp-be:
+    container_name: litemp-be
+    build:
+      context: ./docker/php
+      args:
+        user: litemp
+        UID: 501
+    environment:
+      PHP_IDE_CONFIG: serverName=Docker
+      PHP_XDEBUG_ENABLED: 1
+      XDEBUG_CONFIG: remote_host=host.docker.internal remote_port=9003 XDEBUG_CLIENT_HOST=host.docker.internal XDEBUG_CLIENT_PORT=9003
+    volumes:
+      - ./:/var/www
+      - ./docker/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+      - ~/.ssh/id_rsa:/home/appuser/.ssh/litemp
+    networks:
+      - litemp-network
+    depends_on:
+      - litemp-db
+
+  litemp-db:
+    container_name: litemp-db
+    image: mariadb:latest
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PASSWORD=123123
+      - MYSQL_USER=user
+      - MYSQL_DATABASE=LitempDb
+    networks:
+      - litemp-network
+
+networks:
+  litemp-network:
+    external: true

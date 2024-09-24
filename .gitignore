@@ -1,0 +1,8 @@
+/MVC/.env
+/MVC/vendor
+/MVC/node_modules
+/MVC/.idea
+/DDD/.env
+/DDD/vendor
+/DDD/node_modules
+/DDD/.idea

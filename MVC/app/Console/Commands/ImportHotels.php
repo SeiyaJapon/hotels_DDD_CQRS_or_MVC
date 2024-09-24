@@ -65,11 +65,16 @@ class ImportHotels extends Command
         ];
 
         $mappedData = [];
-        foreach ($data as $key => $value) {
-            if (isset($fieldMapping[$key])) {
-                $mappedData[$fieldMapping[$key]] = $value;
+        foreach ($data as $item) {
+            $mappedItem = [];
+            foreach ($item as $key => $value) {
+                if (isset($fieldMapping[$key])) {
+                    $mappedItem[$fieldMapping[$key]] = $value;
+                }
             }
+            $mappedData[] = $mappedItem;
         }
+
         return $mappedData;
     }
 }

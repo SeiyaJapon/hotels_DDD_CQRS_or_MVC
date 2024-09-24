@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="921c6301-46fe-486f-a3a2-ce72067f2a22" name="Changes" comment="" />
+    <list default="true" id="921c6301-46fe-486f-a3a2-ce72067f2a22" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/little-emperors.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/little-emperors.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,8 +25,25 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/usr/local/Cellar/php@7.1/7.1.33_10/bin/php">
+  <component name="PhpDebugGeneral" break_at_first_line="true" listening_started="true">
+    <xdebug_debug_ports port="9003" />
+    <xdebug_debug_ports port="9000" />
+    <xdebug_debug_ports port="9001" />
+    <xdebug_debug_ports port="9005" />
+    <xdebug_debug_ports port="9091" />
+  </component>
+  <component name="PhpServers">
+    <servers>
+      <server host="localhost" id="c7d82eb6-7ab8-4387-bead-2974900b29a6" name="docker" use_path_mappings="true">
+        <path_mappings>
+          <mapping local-root="$PROJECT_DIR$/MVC" remote-root="/var/www" />
+        </path_mappings>
+      </server>
+    </servers>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="mvc-litemp-be:latest">
     <include_path>
       <path value="$PROJECT_DIR$/MVC/vendor/ramsey/collection" />
       <path value="$PROJECT_DIR$/MVC/vendor/league/flysystem" />
@@ -120,6 +141,17 @@
       <path value="$PROJECT_DIR$/MVC/vendor/symfony/event-dispatcher" />
       <path value="$PROJECT_DIR$/MVC/vendor/sebastian/comparator" />
       <path value="$PROJECT_DIR$/MVC/vendor/symfony/event-dispatcher-contracts" />
+      <path value="$PROJECT_DIR$/MVC/vendor/symfony/yaml" />
+      <path value="$PROJECT_DIR$/MVC/vendor/symfony/uid" />
+      <path value="$PROJECT_DIR$/MVC/vendor/symfony/translation-contracts" />
+      <path value="$PROJECT_DIR$/MVC/vendor/symfony/translation" />
+      <path value="$PROJECT_DIR$/MVC/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/MVC/vendor/symfony/mailer" />
+      <path value="$PROJECT_DIR$/MVC/vendor/symfony/http-kernel" />
+      <path value="$PROJECT_DIR$/MVC/vendor/symfony/http-foundation" />
+      <path value="$PROJECT_DIR$/MVC/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/MVC/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/MVC/vendor/symfony/clock" />
     </include_path>
   </component>
   <component name="ProblemsViewState">
@@ -133,20 +165,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/seiya/Sites/little-emperors/MVC&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "credentialsType com.jetbrains.php.remote.interpreter.ui.PhpCreateRemoteSdkForm": "Docker",
+    "credentialsType com.jetbrains.php.remote.interpreter.ui.PhpInplaceEditRemoteSdkForm": "Docker",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/Users/seiya/Sites/little-emperors/MVC",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "settings.php.debug.servers",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/MVC" />
@@ -176,7 +210,8 @@
       <option name="presentableId" value="Default" />
       <updated>1727108653118</updated>
       <workItem from="1727108654977" duration="5695000" />
-      <workItem from="1727165750239" duration="456000" />
+      <workItem from="1727165750239" duration="2017000" />
+      <workItem from="1727167813942" duration="138000" />
     </task>
     <servers />
   </component>
@@ -214,6 +249,11 @@
               </option>
               <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
             </State>
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State />
           </value>
         </entry>
       </map>

@@ -66,6 +66,7 @@ laravel-install: ## install laravel
 
 create-project: ## create project
 	mkdir -p temp
+	@make create-network
 	@make laravel-install
 	mv temp/* .
 	rm -rf temp

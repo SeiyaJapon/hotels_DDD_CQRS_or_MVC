@@ -8,7 +8,21 @@ interface HotelRepositoryInterface
 {
     public function findById(string $id): ?Hotel;
     public function findAll(): array;
-    public function save(Hotel $hotel): void;
-    public function update(Hotel $hotel): void;
+    public function save(
+        string $id,
+        string $name,
+        ?string $image,
+        int $stars,
+        string $city,
+        ?string $description
+    ): Hotel;
+    public function update(
+        string $id,
+        string $name,
+        ?string $image,
+        int $stars,
+        string $city,
+        ?string $description
+    ): Hotel;
     public function delete(string $id): void;
 }

@@ -23,28 +23,44 @@ class EloquentHotelRepository implements HotelRepositoryInterface
         })->toArray();
     }
 
-    public function save(Hotel $hotel): void
-    {
-        EloquentHotel::create([
-            'id' => $hotel->getId(),
-            'name' => $hotel->getName(),
-            'image' => $hotel->getImage(),
-            'stars' => $hotel->getStars(),
-            'city' => $hotel->getCity(),
-            'description' => $hotel->getDescription(),
+    public function save(
+        string $id,
+        string $name,
+        ?string $image,
+        int $stars,
+        string $city,
+        ?string $description
+    ): Hotel {
+        $eloquentHotel = EloquentHotel::create([
+            'id' => $id,
+            'name' => $name,
+            'image' => $image,
+            'stars' => $stars,
+            'city' => $city,
+            'description' => $description,
         ]);
+
+        return $this->mapToDomain($eloquentHotel);
     }
 
-    public function update(Hotel $hotel): void
-    {
-        $eloquentHotel = EloquentHotel::find($hotel->getId());
+    public function update(
+        string $id,
+        string $name,
+        ?string $image,
+        int $stars,
+        string $city,
+        ?string $description
+    ): Hotel {
+        $eloquentHotel = EloquentHotel::find($id);
         $eloquentHotel->update([
-            'name' => $hotel->getName(),
-            'image' => $hotel->getImage(),
-            'stars' => $hotel->getStars(),
-            'city' => $hotel->getCity(),
-            'description' => $hotel->getDescription(),
+            'name' => $name,
+            'image' => $image,
+            'stars' => $stars,
+            'city' => $city,
+            'description' => $description,
         ]);
+
+        return $this->mapToDomain($eloquentHotel);
     }
 
     public function delete(string $id): void

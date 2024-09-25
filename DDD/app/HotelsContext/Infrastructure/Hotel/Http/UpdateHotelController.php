@@ -4,11 +4,11 @@ declare (strict_types=1);
 
 namespace App\HotelsContext\Infrastructure\Hotel\Http;
 
-use App\AuthContext\Infrastructure\CommandBus\CommandBusInterface;
+use App\ShareContext\Infrastructure\CommandBus\CommandBusInterface;
 use App\HotelsContext\Application\Hotel\Command\UpdateHotelCommand;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 class UpdateHotelController extends Controller
 {

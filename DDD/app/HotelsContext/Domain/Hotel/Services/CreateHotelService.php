@@ -5,7 +5,6 @@ declare (strict_types=1);
 namespace App\HotelsContext\Domain\Hotel\Services;
 
 use App\HotelsContext\Domain\Hotel\HotelRepositoryInterface;
-use Illuminate\Support\Str;
 
 class CreateHotelService
 {
@@ -16,10 +15,10 @@ class CreateHotelService
         $this->repository = $repository;
     }
 
-    public function create(string $name, ?string $image, int $stars, string $city, ?string $description): void
+    public function create(string $id, string $name, ?string $image, int $stars, string $city, ?string $description): void
     {
         $this->repository->save(
-            (string) Str::uuid(),
+            $id,
             $name,
             $image,
             $stars,

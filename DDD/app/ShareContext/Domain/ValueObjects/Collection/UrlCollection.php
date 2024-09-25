@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\AuthContext\Domain\ValueObjects\Collection;
+namespace App\ShareContext\Domain\ValueObjects\Collection;
 
-use App\AuthContext\Domain\ValueObjects\Single\Url;
+use App\ShareContext\Domain\ValueObjects\Single\Url;
 
 class UrlCollection extends AbstractCollection
 {

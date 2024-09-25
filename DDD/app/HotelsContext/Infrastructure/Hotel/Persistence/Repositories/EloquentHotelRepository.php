@@ -65,7 +65,8 @@ class EloquentHotelRepository implements HotelRepositoryInterface
 
     public function delete(string $id): void
     {
-        EloquentHotel::find($id)->delete();
+        $hotel = EloquentHotel::find($id);
+        $hotel->delete();
     }
 
     private function mapToDomain(EloquentHotel $hotel): Hotel

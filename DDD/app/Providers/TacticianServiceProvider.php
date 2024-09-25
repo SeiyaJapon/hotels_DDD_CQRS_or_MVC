@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\AuthContext\Infrastructure\CommandBus\TacticianCommandBus;
+use App\ShareContext\Infrastructure\CommandBus\TacticianCommandBus;
 use Illuminate\Support\ServiceProvider;
-use App\AuthContext\Infrastructure\QueryBus\TacticianQueryBus;
-use App\AuthContext\Infrastructure\CommandBus\CommandBusInterface;
-use App\AuthContext\Infrastructure\QueryBus\QueryBusInterface;
+use App\ShareContext\Infrastructure\QueryBus\TacticianQueryBus;
+use App\ShareContext\Infrastructure\CommandBus\CommandBusInterface;
+use App\ShareContext\Infrastructure\QueryBus\QueryBusInterface;
 use League\Tactician\CommandBus;
 use League\Tactician\Handler\CommandHandlerMiddleware;
 use League\Tactician\Handler\CommandNameExtractor\ClassNameExtractor;
@@ -19,6 +19,10 @@ class TacticianServiceProvider extends ServiceProvider
 {
     public function register()
     {
+        if (!config()->has('cqrs.commands') || !config()->has('cqrs.queries')) {
+            throw new \Exception("CQRS configuration not found. Ensure the config/cqrs.php file exists and is correctly configured.");
+        }
+
         $this->app->singleton(CommandBusInterface::class, function ($app) {
             $commandMap = config('cqrs.commands');
             $locator = new InMemoryLocator();

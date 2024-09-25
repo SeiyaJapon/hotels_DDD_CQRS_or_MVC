@@ -4,22 +4,24 @@ declare (strict_types=1);
 
 namespace App\HotelsContext\Infrastructure\Hotel\Http;
 
-use App\HotelsContext\Domain\Hotel\HotelRepositoryInterface;
+use App\HotelsContext\Application\Hotel\Query\ListHotelQuery;
+use App\HotelsContext\Application\Hotel\Query\ListHotelQueryHandler;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 
 class ListHotelsController extends Controller
 {
-    private HotelRepositoryInterface $hotelRepository;
+    private ListHotelQueryHandler $queryHandler;
 
-    public function __construct(HotelRepositoryInterface $hotelRepository)
+    public function __construct(ListHotelQueryHandler $queryHandler)
     {
-        $this->hotelRepository = $hotelRepository;
+        $this->queryHandler = $queryHandler;
     }
 
     public function __invoke(): JsonResponse
     {
-        $hotels = $this->hotelRepository->findAll();
-        return new JsonResponse($hotels, 200);
+        $result = $this->queryHandler->ask(new ListHotelQuery());
+
+        return new JsonResponse($result->result(), 200);
     }
 }

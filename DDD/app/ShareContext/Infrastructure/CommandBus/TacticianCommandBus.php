@@ -2,9 +2,9 @@
 
 declare (strict_types=1);
 
-namespace App\AuthContext\Infrastructure\CommandBus;
+namespace App\ShareContext\Infrastructure\CommandBus;
 
-use App\AuthContext\Application\Command\CommandInterface;
+use App\ShareContext\Application\Command\CommandInterface;
 use League\Tactician\CommandBus;
 
 class TacticianCommandBus implements CommandBusInterface

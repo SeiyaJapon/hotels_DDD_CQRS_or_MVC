@@ -2,20 +2,12 @@
 
 return [
     'commands' => [
-        App\AuthContext\Application\User\Command\RegisterUserCommand\RegisterUserCommand::class =>
-            App\AuthContext\Application\User\Command\RegisterUserCommand\RegisterUserCommandHandler::class,
-        App\AuthContext\Application\User\Command\UpdateUserCommand\UpdateUserCommand::class =>
-            App\AuthContext\Application\User\Command\UpdateUserCommand\UpdateUserCommandHandler::class,
-
+        \App\HotelsContext\Application\Hotel\Command\CreateHotelCommand::class => \App\HotelsContext\Application\Hotel\Command\CreateHotelCommandHandler::class,
+        \App\HotelsContext\Application\Hotel\Command\UpdateHotelCommand::class => \App\HotelsContext\Application\Hotel\Command\UpdateHotelCommandHandler::class,
+        \App\HotelsContext\Application\Hotel\Command\DeleteHotelCommand::class => \App\HotelsContext\Application\Hotel\Command\DeleteHotelCommandHandler::class,
     ],
     'queries' => [
-        App\AuthContext\Application\User\Query\GeneratePasswordGrantClientAccessTokenQuery\GeneratePasswordGrantClientAccessTokenQuery::class =>
-            App\AuthContext\Application\User\Query\GeneratePasswordGrantClientAccessTokenQuery\GeneratePasswordGrantClientAccessTokenQueryHandler::class,
-        \App\AuthContext\Application\User\Query\FindUserByEmailAndPasswordQuery\FindUserByEmailAndPasswordQuery::class =>
-            \App\AuthContext\Application\User\Query\FindUserByEmailAndPasswordQuery\FindUserByEmailAndPasswordQueryHandler::class,
-        \App\AuthContext\Application\Client\Query\GetClientPasswordQuery\GetClientPasswordQuery::class =>
-            \App\AuthContext\Application\Client\Query\GetClientPasswordQuery\GetClientPasswordQueryHandler::class,
-        \App\AuthContext\Application\User\Query\FindUserByIdQuery\FindByIdQuery::class =>
-            \App\AuthContext\Application\User\Query\FindUserByIdQuery\FindByIdQueryHandler::class,
+        \App\HotelsContext\Application\Hotel\Query\ListHotelQuery::class => \App\HotelsContext\Application\Hotel\Query\ListHotelQueryHandler::class,
+        \App\HotelsContext\Application\Hotel\Query\GetHotelQuery::class => \App\HotelsContext\Application\Hotel\Query\GetHotelQueryHandler::class,
     ],
 ];

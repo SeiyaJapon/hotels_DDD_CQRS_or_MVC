@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\AuthContext\Domain\ValueObjects\Collection;
+namespace App\ShareContext\Domain\ValueObjects\Collection;
 
-use App\AuthContext\Domain\ValueObjects\Single\Slug;
+use App\ShareContext\Domain\ValueObjects\Single\Slug;
 
 class SlugCollection extends AbstractCollection
 {

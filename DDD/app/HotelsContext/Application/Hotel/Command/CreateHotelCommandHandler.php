@@ -18,6 +18,7 @@ class CreateHotelCommandHandler
     public function handle(CreateHotelCommand $command): void
     {
         $this->hotelService->create(
+            $command->id,
             $command->name,
             $command->image,
             $command->stars,

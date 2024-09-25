@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\AuthContext\Domain\ValueObjects\Collection;
+namespace App\ShareContext\Domain\ValueObjects\Collection;
 
-use App\AuthContext\Domain\ValueObjects\Single\Currency;
+use App\ShareContext\Domain\ValueObjects\Single\Currency;
 
 class CurrencyCollection extends AbstractCollection
 {

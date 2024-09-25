@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\AuthContext\Domain\ValueObjects\Single;
+namespace App\ShareContext\Domain\ValueObjects\Single;
 
 class PhoneNumber
 {

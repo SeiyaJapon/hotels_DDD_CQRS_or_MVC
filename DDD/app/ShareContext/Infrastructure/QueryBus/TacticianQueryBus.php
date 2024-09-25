@@ -2,10 +2,10 @@
 
 declare (strict_types=1);
 
-namespace App\AuthContext\Infrastructure\QueryBus;
+namespace App\ShareContext\Infrastructure\QueryBus;
 
-use App\AuthContext\Application\Query\QueryInterface;
-use App\AuthContext\Application\Query\QueryResultInterface;
+use App\ShareContext\Application\Query\QueryInterface;
+use App\ShareContext\Application\Query\QueryResultInterface;
 use League\Tactician\CommandBus;
 
 class TacticianQueryBus implements QueryBusInterface

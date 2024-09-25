@@ -2,7 +2,7 @@
 
 declare (strict_types = 1);
 
-namespace App\AuthContext\Application\Command;
+namespace App\ShareContext\Application\Command;
 
 interface CommandInterface
 {

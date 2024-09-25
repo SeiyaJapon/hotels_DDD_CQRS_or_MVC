@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\AuthContext\Domain\ValueObjects\Collection;
+namespace App\ShareContext\Domain\ValueObjects\Collection;
 
 use ArrayAccess;
 use Countable;

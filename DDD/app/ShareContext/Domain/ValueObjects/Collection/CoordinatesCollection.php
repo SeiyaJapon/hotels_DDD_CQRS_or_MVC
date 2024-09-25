@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\AuthContext\Domain\ValueObjects\Collection;
+namespace App\ShareContext\Domain\ValueObjects\Collection;
 
-use App\AuthContext\Domain\ValueObjects\Single\Coordinates;
+use App\ShareContext\Domain\ValueObjects\Single\Coordinates;
 
 class CoordinatesCollection extends AbstractCollection
 {

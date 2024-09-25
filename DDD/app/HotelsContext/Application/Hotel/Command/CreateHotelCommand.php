@@ -4,7 +4,7 @@ declare (strict_types=1);
 
 namespace App\HotelsContext\Application\Hotel\Command;
 
-use App\AuthContext\Application\Command\CommandInterface;
+use App\ShareContext\Application\Command\CommandInterface;
 
 class CreateHotelCommand implements CommandInterface
 {

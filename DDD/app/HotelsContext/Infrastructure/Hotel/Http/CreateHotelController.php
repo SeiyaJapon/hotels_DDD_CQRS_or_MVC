@@ -4,11 +4,12 @@ declare (strict_types=1);
 
 namespace App\HotelsContext\Infrastructure\Hotel\Http;
 
-use App\AuthContext\Infrastructure\CommandBus\CommandBusInterface;
+use App\ShareContext\Infrastructure\CommandBus\CommandBusInterface;
 use App\HotelsContext\Application\Hotel\Command\CreateHotelCommand;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CreateHotelController extends Controller
 {
@@ -21,8 +22,10 @@ class CreateHotelController extends Controller
 
     public function __invoke(Request $request): JsonResponse
     {
+        $hotelId = Str::uuid()->toString();
+
         $command = new CreateHotelCommand(
-            $request->input('id'),
+            $hotelId,
             $request->input('name'),
             $request->input('image'),
             $request->input('stars'),
@@ -32,6 +35,6 @@ class CreateHotelController extends Controller
 
         $this->commandBus->handle($command);
 
-        return new JsonResponse(['message' => 'Hotel created successfully'], 201);
+        return new JsonResponse(['message' => 'Hotel created successfully. Id: ' . $hotelId], 201);
     }
 }

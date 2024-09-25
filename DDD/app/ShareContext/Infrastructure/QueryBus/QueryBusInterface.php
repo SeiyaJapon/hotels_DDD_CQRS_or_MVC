@@ -2,9 +2,9 @@
 
 declare (strict_types=1);
 
-namespace App\AuthContext\Infrastructure\QueryBus;
+namespace App\ShareContext\Infrastructure\QueryBus;
 
-use App\AuthContext\Application\Query\QueryInterface;
+use App\ShareContext\Application\Query\QueryInterface;
 
 interface QueryBusInterface
 {

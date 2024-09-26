@@ -13,4 +13,3 @@ abstract class AbstractNullableString extends AbstractStringValueObject
         return new static($value);
     }
 }
-

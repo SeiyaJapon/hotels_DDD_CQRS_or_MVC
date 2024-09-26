@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace App\ShareContext\Domain;
+
 use Illuminate\Support\Facades\Event;
 
 abstract class AggregateRoot

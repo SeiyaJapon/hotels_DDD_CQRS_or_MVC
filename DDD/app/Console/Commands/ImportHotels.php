@@ -2,11 +2,12 @@
 
 namespace App\Console\Commands;
 
-use App\HotelsContext\Domain\Common\FieldMapping;
+use App\HotelsContext\Domain\Common\Services\FieldMapper;
+use App\HotelsContext\Domain\Common\Services\FileValidator;
 use App\ShareContext\Infrastructure\CommandBus\CommandBusInterface;
 use App\HotelsContext\Application\Hotel\Command\CreateHotelCommand;
-use App\HotelsContext\Domain\Common\Services\CsvParser;
 use App\HotelsContext\Domain\Common\Services\FileParserContext;
+use App\HotelsContext\Domain\Common\Services\CsvParser;
 use App\HotelsContext\Domain\Common\Services\JsonParser;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
@@ -15,37 +16,50 @@ class ImportHotels extends Command
 {
     protected $signature = 'app:import-hotels {file}';
     protected $description = 'Import hotels from a CSV or JSON file';
-    private CommandBusInterface $commandBus;
 
-    public function __construct(CommandBusInterface $commandBus)
-    {
+    private CommandBusInterface $commandBus;
+    private FileValidator $fileValidator;
+    private FileParserContext $fileParserContext;
+    private FieldMapper $fieldMapper;
+
+    public function __construct(
+        CommandBusInterface $commandBus,
+        FileValidator $fileValidator,
+        FileParserContext $fileParserContext,
+        FieldMapper $fieldMapper
+    ) {
         parent::__construct();
         $this->commandBus = $commandBus;
+        $this->fileValidator = $fileValidator;
+        $this->fileParserContext = $fileParserContext;
+        $this->fieldMapper = $fieldMapper;
     }
 
     public function handle(): void
     {
         $filePath = $this->argument('file');
 
-        if (!file_exists($filePath)) {
-            $this->error("File does not exist.");
+        if (!$this->fileValidator->validate($filePath)) {
+            $this->error("File does not exist or is not valid.");
             return;
         }
 
-        $fileParser = new FileParserContext();
-
-        if ($this->isCsv($filePath)) {
-            $fileParser->setStrategy(new CsvParser());
+        $fileExtension = pathinfo($filePath, PATHINFO_EXTENSION);
+        if ($fileExtension === 'csv') {
+            $this->fileParserContext->setStrategy(new CsvParser());
+        } elseif ($fileExtension === 'json') {
+            $this->fileParserContext->setStrategy(new JsonParser());
         } else {
-            $fileParser->setStrategy(new JsonParser());
+            $this->error("Unsupported file format.");
+            return;
         }
 
-        $data = $fileParser->parse($filePath);
-        $mappedCsvData = $this->mapFields($data);
+        $data = $this->fileParserContext->parse($filePath);
+        $mappedData = $this->fieldMapper->map($data);
 
-        foreach ($mappedCsvData as $hotelData) {
+        foreach ($mappedData as $hotelData) {
             $command = new CreateHotelCommand(
-                Str::Uuid()->toString(),
+                Str::uuid()->toString(),
                 $hotelData['name'],
                 $hotelData['image'],
                 intval($hotelData['stars']),
@@ -56,28 +70,5 @@ class ImportHotels extends Command
         }
 
         $this->info("Hotels imported successfully!");
-    }
-
-    protected function isCsv($filePath): bool
-    {
-        return pathinfo($filePath, PATHINFO_EXTENSION) === 'csv';
-    }
-
-    private function mapFields(array $data): array
-    {
-        $fieldMapping = FieldMapping::getMapping();
-
-        $mappedData = [];
-        foreach ($data as $item) {
-            $mappedItem = [];
-            foreach ($item as $key => $value) {
-                if (isset($fieldMapping[$key])) {
-                    $mappedItem[$fieldMapping[$key]] = $value;
-                }
-            }
-            $mappedData[] = $mappedItem;
-        }
-
-        return $mappedData;
     }
 }

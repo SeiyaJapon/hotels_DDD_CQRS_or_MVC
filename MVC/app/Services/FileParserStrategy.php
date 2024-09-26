@@ -4,6 +4,7 @@ declare (strict_types=1);
 
 namespace App\Services;
 
-interface FileParserStrategy {
+interface FileParserStrategy
+{
     public function parse(string $filePath): array;
 }

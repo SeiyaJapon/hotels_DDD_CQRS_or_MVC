@@ -4,7 +4,8 @@ declare (strict_types=1);
 
 namespace App\Repository;
 
-interface HotelRepositoryInterface {
+interface HotelRepositoryInterface
+{
     public function store(array $data);
     public function getAll();
     public function getById($id);

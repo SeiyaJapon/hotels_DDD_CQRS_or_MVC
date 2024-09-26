@@ -5,28 +5,34 @@ namespace App\Http\Controllers;
 use App\Repository\HotelRepositoryInterface;
 use Illuminate\Http\Request;
 
-class HotelController extends Controller {
+class HotelController extends Controller
+{
     protected $hotelRepository;
 
-    public function __construct(HotelRepositoryInterface $hotelRepository) {
+    public function __construct(HotelRepositoryInterface $hotelRepository)
+    {
         $this->hotelRepository = $hotelRepository;
     }
 
-    public function index() {
+    public function index()
+    {
         return $this->hotelRepository->getAll();
     }
 
-    public function show($id) {
+    public function show($id)
+    {
         return $this->hotelRepository->getById($id);
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $data = $this->validateArgs($request);
 
         return $this->hotelRepository->store($data);
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'image' => 'nullable|string',
@@ -38,7 +44,8 @@ class HotelController extends Controller {
         return $this->hotelRepository->update($id, $data);
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         return $this->hotelRepository->delete($id);
     }
 

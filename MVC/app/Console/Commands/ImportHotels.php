@@ -9,7 +9,8 @@ use App\Services\FileParserContext;
 use App\Services\JsonParser;
 use Illuminate\Console\Command;
 
-class ImportHotels extends Command {
+class ImportHotels extends Command
+{
     protected $signature = 'hotels:import {file}';
     protected $description = 'Import hotels from a CSV or JSON file';
 
@@ -28,7 +29,8 @@ class ImportHotels extends Command {
         $this->fieldMappingService = $fieldMappingService;
     }
 
-    public function handle(): void {
+    public function handle(): void
+    {
         $filePath = $this->argument('file');
 
         if (!file_exists($filePath)) {
@@ -52,7 +54,8 @@ class ImportHotels extends Command {
         $this->info("Hotels imported successfully!");
     }
 
-    protected function isCsv($filePath): bool {
+    protected function isCsv($filePath): bool
+    {
         return pathinfo($filePath, PATHINFO_EXTENSION) === 'csv';
     }
 }

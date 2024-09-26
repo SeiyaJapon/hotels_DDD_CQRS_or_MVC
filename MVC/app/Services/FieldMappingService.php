@@ -8,7 +8,8 @@ use App\Repository\FieldMappingServiceInterface;
 
 class FieldMappingService implements FieldMappingServiceInterface
 {
-    public function mapFields(array $data): array {
+    public function mapFields(array $data): array
+    {
         $fieldMapping = FieldMapping::getMapping();
 
         $mappedData = [];

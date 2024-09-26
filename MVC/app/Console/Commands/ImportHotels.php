@@ -2,27 +2,33 @@
 
 namespace App\Console\Commands;
 
-use App\Repository\HotelRepository;
+use App\Repository\FieldMappingServiceInterface;
+use App\Repository\HotelRepositoryInterface;
 use App\Services\CsvParser;
 use App\Services\FileParserContext;
 use App\Services\JsonParser;
 use Illuminate\Console\Command;
 
-class ImportHotels extends Command
-{
+class ImportHotels extends Command {
     protected $signature = 'hotels:import {file}';
     protected $description = 'Import hotels from a CSV or JSON file';
-    private HotelRepository $repository;
 
-    public function __construct()
-    {
+    private HotelRepositoryInterface $repository;
+    private FileParserContext $fileParserContext;
+    private FieldMappingServiceInterface $fieldMappingService;
+
+    public function __construct(
+        HotelRepositoryInterface $repository,
+        FileParserContext $fileParserContext,
+        FieldMappingServiceInterface $fieldMappingService
+    ) {
         parent::__construct();
-
-        $this->repository = new HotelRepository();
+        $this->repository = $repository;
+        $this->fileParserContext = $fileParserContext;
+        $this->fieldMappingService = $fieldMappingService;
     }
 
-    public function handle(): void
-    {
+    public function handle(): void {
         $filePath = $this->argument('file');
 
         if (!file_exists($filePath)) {
@@ -30,51 +36,23 @@ class ImportHotels extends Command
             return;
         }
 
-        $fileParser = new FileParserContext();
-
         if ($this->isCsv($filePath)) {
-            $fileParser->setStrategy(new CsvParser());
+            $this->fileParserContext->setStrategy(new CsvParser());
         } else {
-            $fileParser->setStrategy(new JsonParser());
+            $this->fileParserContext->setStrategy(new JsonParser());
         }
 
-        $data = $fileParser->parse($filePath);
-        $mappedCsvData = $this->mapFields($data);
+        $data = $this->fileParserContext->parse($filePath);
+        $mappedData = $this->fieldMappingService->mapFields($data);
 
-        foreach ($mappedCsvData as $hotelData) {
+        foreach ($mappedData as $hotelData) {
             $this->repository->store($hotelData);
         }
 
         $this->info("Hotels imported successfully!");
     }
 
-    protected function isCsv($filePath): bool
-    {
+    protected function isCsv($filePath): bool {
         return pathinfo($filePath, PATHINFO_EXTENSION) === 'csv';
-    }
-
-    private function mapFields(array $data): array
-    {
-        $fieldMapping = [
-            'Hotel Name' => 'name',
-            'Image' => 'image',
-            'City' => 'city',
-            'Address' => 'address',
-            'Description' => 'description',
-            'Stars' => 'stars'
-        ];
-
-        $mappedData = [];
-        foreach ($data as $item) {
-            $mappedItem = [];
-            foreach ($item as $key => $value) {
-                if (isset($fieldMapping[$key])) {
-                    $mappedItem[$fieldMapping[$key]] = $value;
-                }
-            }
-            $mappedData[] = $mappedItem;
-        }
-
-        return $mappedData;
     }
 }

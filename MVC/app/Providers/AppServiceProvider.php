@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Repository\FieldMappingServiceInterface;
 use App\Repository\HotelRepository;
 use App\Repository\HotelRepositoryInterface;
 use App\Services\CsvParser;
+use App\Services\FieldMappingService;
 use App\Services\FileParserContext;
 use App\Services\FileParserStrategy;
 use App\Services\JsonParser;
@@ -18,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(HotelRepositoryInterface::class, HotelRepository::class);
+        $this->app->bind(FieldMappingServiceInterface::class, FieldMappingService::class);
 
         $this->app->singleton(FileParserStrategy::class, function ($app) {
             if (env('PARSER_TYPE') === 'csv') {

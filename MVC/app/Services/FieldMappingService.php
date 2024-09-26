@@ -6,7 +6,8 @@ namespace App\Services;
 
 use App\Repository\FieldMappingServiceInterface;
 
-class FieldMappingService implements FieldMappingServiceInterface {
+class FieldMappingService implements FieldMappingServiceInterface
+{
     public function mapFields(array $data): array {
         $fieldMapping = FieldMapping::getMapping();
 

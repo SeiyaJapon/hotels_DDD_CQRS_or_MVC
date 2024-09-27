@@ -1,22 +1,3 @@
-<?php
-
-namespace App\Console\Commands;
-
-use App\Repository\FieldMappingServiceInterface;
-use App\Repository\HotelRepositoryInterface;
-use App\Services\CsvParser;
-use App\Services\FileParserContext;
-use App\Services\JsonParser;
-use Illuminate\Console\Command;
-
-class ImportHotels extends Command
-{
-    protected $signature = 'hotels:import {file}';
-    protected $description = 'Import hotels from a CSV or JSON file';
-
-    private HotelRepositoryInterface $repository;
-    private FileParserContext $fileParserContext;
-    private FieldMappingServiceInterface $fieldMappingService;
 # Little Emperors Hotel Management
 
 This project was developed in **two versions**, both implementing the same hotel management system but with **different approaches**: one version using **MVC** and another using **DDD (Domain-Driven Design)**.
@@ -39,8 +20,7 @@ In addition to DDD, this version also incorporates **CQRS (Command Query Respons
 
 ## File Import System
 
-The project includes a command to **import a list of hotels** from a CSV or JSON file into a local database. While this project is designed with a small dataset in mind, it is **scalable** to handle larger datasets. For larger imports involving thousands of records, there is another repository using **events and queues** for efficient batch processing. You can find it here:
-[https://github.com/SeiyaJapon/events-service-ddd-cqrs-events-queues](https://github.com/SeiyaJapon/events-service-ddd-cqrs-events-queues)
+The project includes a command to import a list of hotels from a CSV or JSON file into a local database. While this project is designed with a small dataset in mind, I am aware that it could be scaled to handle much larger datasets containing thousands of records. Although this project does not implement such a large-scale import, I have a separate repository that demonstrates how to handle large data imports using events and queues. If the approach required such a solution, I have experience implementing it. You can find an example of this implementation here: https://github.com/SeiyaJapon/events-service-ddd-cqrs-events-queues.
 
 ## Patterns Used
 
@@ -65,7 +45,7 @@ Both the **MVC** and **DDD** versions come with **complete unit tests** to ensur
 - **Happy path tests** for all features (importing, CRUD operations).
 - **Edge case tests** to handle invalid data, missing fields, etc.
 - **Tests for both file formats** (CSV and JSON) to ensure the import command works regardless of the format.
-
+  
 Unit tests were designed to cover the entire functionality of the project, including both **CRUD operations** and **the import command**.
 
 ## How to Run the Project
@@ -75,45 +55,27 @@ Unit tests were designed to cover the entire functionality of the project, inclu
 ```bash
 git clone https://github.com/SeiyaJapon/littleEmperors
 cd littleEmperors
+```
+2. Install dependencies:
 
-    public function __construct(
-        HotelRepositoryInterface $repository,
-        FileParserContext $fileParserContext,
-        FieldMappingServiceInterface $fieldMappingService
-    ) {
-        parent::__construct();
-        $this->repository = $repository;
-        $this->fileParserContext = $fileParserContext;
-        $this->fieldMappingService = $fieldMappingService;
-    }
+```bash
+composer install
+```
+3. Run migrations to set up the database:
 
-    public function handle(): void
-    {
-        $filePath = $this->argument('file');
+```bash
+php artisan migrate
+```
+4. Run the import command:
 
-        if (!file_exists($filePath)) {
-            $this->error("File does not exist.");
-            return;
-        }
+```bash
+php artisan app:import-hotels {file}
+```
+5. Run unit tests:
+    
+```bash
+php artisan test
+```
 
-        if ($this->isCsv($filePath)) {
-            $this->fileParserContext->setStrategy(new CsvParser());
-        } else {
-            $this->fileParserContext->setStrategy(new JsonParser());
-        }
-
-        $data = $this->fileParserContext->parse($filePath);
-        $mappedData = $this->fieldMappingService->mapFields($data);
-
-        foreach ($mappedData as $hotelData) {
-            $this->repository->store($hotelData);
-        }
-
-        $this->info("Hotels imported successfully!");
-    }
-
-    protected function isCsv($filePath): bool
-    {
-        return pathinfo($filePath, PATHINFO_EXTENSION) === 'csv';
-    }
-}
+## Conclusion
+This project demonstrates two approaches (MVC and DDD) to implementing a hotel management system in Laravel. Both versions include unit tests, follow best practices, and are designed to be easily extensible. For larger-scale imports, check out the linked repository that demonstrates how to handle large datasets efficiently using events and queues.

@@ -50,32 +50,42 @@ Unit tests were designed to cover the entire functionality of the project, inclu
 
 ## How to Run the Project
 
-1. Clone the repository:
+1. Copy the `.env.dist` file from the root directory of both the `mvc` and `ddd` versions, and rename it to `.env`:
 
-```bash
-git clone https://github.com/SeiyaJapon/littleEmperors
-cd littleEmperors
-```
-2. Install dependencies:
+   ```
+   cp mvc/.env.dist mvc/.env
+   cp ddd/.env.dist ddd/.env
+   ```
 
-```bash
-composer install
-```
-3. Run migrations to set up the database:
+2. Navigate to the version you want to set up:
 
-```bash
-php artisan migrate
-```
-4. Run the import command:
+   ```
+   cd mvc    # or 'cd ddd' for the DDD version
+   ```
 
-```bash
-php artisan app:import-hotels {file}
-```
-5. Run unit tests:
-    
-```bash
-php artisan test
-```
+3. Run the following commands to set up the project:
+
+   ```
+   make up
+   make laravel-install
+   make prepare
+   make fresh
+   ```
+
+4. To enter the container, run:
+
+   ```
+   make enter
+   ```
+
+5. Inside the container, you can run any Laravel command using `php artisan`:
+
+   ```
+   php artisan [command]
+   ```
+
+Replace `[command]` with the specific Laravel command you want to execute.
+
 
 ## Conclusion
 This project demonstrates two approaches (MVC and DDD) to implementing a hotel management system in Laravel. Both versions include unit tests, follow best practices, and are designed to be easily extensible. For larger-scale imports, check out the linked repository that demonstrates how to handle large datasets efficiently using events and queues.

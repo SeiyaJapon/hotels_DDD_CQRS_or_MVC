@@ -303,6 +303,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/MVC" />
       <recent name="$PROJECT_DIR$/DDD" />
     </key>
@@ -337,7 +338,7 @@
       <workItem from="1727108654977" duration="5695000" />
       <workItem from="1727165750239" duration="2017000" />
       <workItem from="1727167813942" duration="138000" />
-      <workItem from="1727426085301" duration="940000" />
+      <workItem from="1727426085301" duration="1503000" />
     </task>
     <servers />
   </component>
